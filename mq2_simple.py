@@ -11,7 +11,6 @@ GPIO.output(32, GPIO.LOW)
 
 GPIO.setup(15,GPIO.IN)
 
-
 try:
     while True:
         if GPIO.input(15) != 1:
