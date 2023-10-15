@@ -95,9 +95,11 @@ def set_alarm(led_pin, buzzer_pin):
     GPIO.output(buzzer_pin, GPIO.HIGH)
     print("ALERT: HAZARD OF FIRE")
     
-def reset_alert_sent(counter):
-    if (counter > 10) and (counter % 100 == 0):
+def reset_alert_sent(clock):
+    if (clock > 10) and (clock % 100 == 0):
         return False
+    else:
+        return True
 
 def reset_actuators():
     GPIO.output(led_pin, GPIO.LOW)
@@ -229,9 +231,12 @@ def execute(sensor1, sensor2):
                 db_insert(record)
             except:
                 print("Database insertion failed.")
-        
-        fire_alert_msg_sent = reset_alert_sent(clock)
-        gas_alert_msg_sent = reset_alert_sent(clock)
+        if(fire_msg_sent):
+            fire_msg_sent = reset_alert_sent(clock)
+        if(gas_msg_sent):
+            gas_msg_sent = reset_alert_sent(clock)
+        print(fire_msg_sent)
+        print(gas_msg_sent)
         clock %= 101
 
         
